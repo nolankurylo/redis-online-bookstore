@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const redis = require('redis');
 const client = redis.createClient(process.env.REDIS_URL)
-const redisClient = require('./redis-client')
+// const redisClient = require('./redis-client')
 const PORT = process.env.PORT || 3000
 const path = require('path')
 const bodyParser = require("body-parser");
@@ -65,6 +65,6 @@ app.post("/order", async (req, res) => {
 
 
 app.listen(PORT, async () => {
-    await client.connect()
+    // await client.connect()
     console.log(`Server listening on port ${PORT}`)
 })
