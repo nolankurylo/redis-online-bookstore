@@ -65,6 +65,5 @@ app.post("/order", async (req, res) => {
 
 
 app.listen(PORT, async () => {
-    // await client.connect()
     console.log(`Server listening on port ${PORT}`)
 })
