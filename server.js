@@ -6,8 +6,10 @@ const redisClient = require('./redis-client')
 const PORT = process.env.PORT || 3000
 const path = require('path')
 const bodyParser = require("body-parser");
+var cors = require('cors')
 
-
+app.use(cors())
+app.use("/static", express.static(path.join(__dirname, "/static")));
 app.use(bodyParser.urlencoded({ extended: true }))
 
 
@@ -20,16 +22,29 @@ app.get('/store/:key', async (req, res) => {
     return res.send('Success')
 })
 
-app.get('/:key', async (req, res) => {
+// app.get('/:key', async (req, res) => {
     
 
-    const { key } = req.params
-    const rawData = await client.get(key);
-    return res.json(JSON.parse(rawData))
-})
-app.get("/", (req, res) => {
+//     const { key } = req.params
+//     const rawData = await client.get(key);
+//     return res.json(JSON.parse(rawData))
+// })
+
+app.get("/admin", (req, res) => {
+    res.sendFile(__dirname + "/views/admin.html");
+  });
+
+app.get("/order", (req, res) => {
     res.sendFile(__dirname + "/views/orders.html");
   });
+
+app.post("/order", async (req, res) => {
+    console.log(req.body)
+    var name = req.body.name
+    var quantity = req.body.quantity;
+    await client.set(name, JSON.stringify(quantity))
+    res.send("Hello " + name + ", Thank you for purchasing " + quantity + " copies of the Red Book");
+});
 
 // app.get('/store/:key', async (req, res) => {
 //     const { key } = req.params
