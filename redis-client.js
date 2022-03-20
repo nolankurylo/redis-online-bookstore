@@ -1,7 +1,7 @@
 const redis = require('redis');
 const { promisify } = require('util');
 const client = redis.createClient(process.env.REDIS_URL)
-client.connect()
+
 client.on("connect", function () {
     console.log("redis connected");
     console.log(`connected ${redisClient.connected}`);
