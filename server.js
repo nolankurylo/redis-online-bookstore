@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const redis = require('redis');
 const client = redis.createClient(process.env.REDIS_URL)
-// const redisClient = require('./redis-client')
 const PORT = process.env.PORT || 3000
 const path = require('path')
 const bodyParser = require("body-parser");
