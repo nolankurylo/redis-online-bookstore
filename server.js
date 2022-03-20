@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const redis = require('redis');
-const client = redis.createClient(process.env.REDIS_URL)
+const client = redis.createClient({url: process.env.REDIS_URL})
 const PORT = process.env.PORT || 3000
 const path = require('path')
 const bodyParser = require("body-parser");
@@ -21,13 +21,13 @@ app.get('/store/:key', async (req, res) => {
     return res.send('Success')
 })
 
-// app.get('/:key', async (req, res) => {
+app.get('/get/:key', async (req, res) => {
     
 
-//     const { key } = req.params
-//     const rawData = await client.get(key);
-//     return res.json(JSON.parse(rawData))
-// })
+    const { key } = req.params
+    const rawData = await client.get(key);
+    return res.json(JSON.parse(rawData))
+})
 
 app.get("/admin", (req, res) => {
     res.sendFile(__dirname + "/views/admin.html");
@@ -64,5 +64,6 @@ app.post("/order", async (req, res) => {
 
 
 app.listen(PORT, async () => {
+    await client.connect();
     console.log(`Server listening on port ${PORT}`)
 })
