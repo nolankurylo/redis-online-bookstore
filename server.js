@@ -43,8 +43,6 @@ app.post("/order", async (req, res) => {
 });
 
 app.get("/order_confirmed", async (req, res) => {
-    console.log(req.query.order)
-   
     res.render('order_confirmation', {locals: {order: JSON.parse(req.query.order)}});
 });
 
