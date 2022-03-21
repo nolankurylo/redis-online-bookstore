@@ -6,72 +6,47 @@ const PORT = process.env.PORT || 3000
 const path = require('path')
 const bodyParser = require("body-parser");
 var cors = require('cors')
+const es6Renderer = require('express-es6-template-engine')
+app.engine('html', es6Renderer);
+app.set('views', 'views');
+app.set('view engine', 'html');
 
 app.use(cors())
 app.use("/static", express.static(path.join(__dirname, "/static")));
 app.use(bodyParser.urlencoded({ extended: true }))
 
-
-
-
-app.get('/store/:key', async (req, res) => {
-    const { key } = req.params
-    const value = req.query 
-    await client.set(key, JSON.stringify(value))
-    return res.send('Success')
-})
-
-app.get('/get/:key', async (req, res) => {
-    
-
-    const { key } = req.params
-    const rawData = await client.get(key);
-    return res.json(JSON.parse(rawData))
-})
-
 app.get("/admin", async (req, res) => {
     var orders = await client.lRange("orders", 0, -1)
-
-    console.log(orders)
-    res.sendFile(__dirname + "/views/admin.html");
+    for(var i =0; i < orders.length; i++){
+        orders[i] = JSON.parse(orders[i]) 
+    }
+    res.render('admin', {locals: {orders: orders}});
   });
 
 app.get("/order", (req, res) => {
-    res.sendFile(__dirname + "/views/orders.html");
+    res.render('orders');
   });
 
 app.post("/order", async (req, res) => {
-    console.log(req.body)
    
     var order = {
         book_name: req.body.book_name,
+        author_name: req.body.author_name,
         customer_name: req.body.customer_name,
         quantity: req.body.quantity,
-        total_price: `$${req.body.quantity}`,
+        total_price: `$${parseFloat(req.body.quantity) + 100.0}`,
         date: new Date()
     }
-    console.log(order)
 
     await client.rPush("orders", JSON.stringify(order))
-    res.send("Hello " + req.body.customer_name + ". Thank you for your purchase, we probably won't be in touch!");
+    res.redirect('/order_confirmed?order='+JSON.stringify(order));
 });
 
-// app.get('/store/:key', async (req, res) => {
-//     const { key } = req.params
-//     const value = req.query 
-//     await redisClient.setAsync(key, JSON.stringify(value))
-//     return res.send('Success')
-// })
-
-// app.get('/:key', async (req, res) => {
-//     const { key } = req.params
-//     const rawData = await redisClient.getAsync(key)
-//     return res.json(JSON.parse(rawData))
-// })
-
-
-
-
+app.get("/order_confirmed", async (req, res) => {
+    console.log(req.query.order)
+   
+    res.render('order_confirmation', {locals: {order: JSON.parse(req.query.order)}});
+});
 
 
 app.listen(PORT, async () => {

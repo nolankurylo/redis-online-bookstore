@@ -14,7 +14,7 @@
 <div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/order">Online Bookstore</a>
+      <a class="navbar-brand" href="/order">Nolan's Hard Covers</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -32,18 +32,26 @@
   </nav>
 <br/>
 <div class="container text-center">
+  <h1>Welcome to Nolan's Hard Covers Online Bookstore!</h1>
+  <h5 class="text-muted">100% User Dissatisfaction Guaranteed</h5>
+  <br>
+  
     <div class="text-center", style="display:flex; justify-content: center; align-items:center; margin-left: auto; margin-right: auto">
       <div class="card" style="width: 20rem;">
         <img src="../static/book.png" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Nolan's Busty Books - $1.00 each</h5>
+          <h5 class="card-title">$1.00 each</h5>
           <p class="card-text">Purchase any book you can think of, it literally doesn't even need to exist. We promise we'll make it and send it to you - no address required. 
-             To place your order, </p>
+             To place your order, please fill out the following: </p>
           <form method="POST">
             <div class="mb-3">
               <label for="book_name" class="form-label">Book Name</label>
               <input type="text" class="form-control" name="book_name" id="book_name" aria-describedby="book_name" required>
             
+            </div>
+            <div class="mb-3">
+              <label for="author_name" class="form-label">Author Name</label>
+              <input type="text" name="author_name" class="form-control" id="author_name" required>
             </div>
             <div class="mb-3">
               <label for="quantity" class="form-label">Quantity</label>
@@ -71,7 +79,7 @@
     </div>
     
   </div>
-  
+  <br>
 </div>
 
 </div>

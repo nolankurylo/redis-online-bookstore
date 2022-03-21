@@ -12,9 +12,10 @@
 <body>
 <div>
 <div>
+  
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/order">Online Bookstore</a>
+      <a class="navbar-brand" href="/order">Nolan's Hard Covers</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -31,11 +32,46 @@
     </div>
   </nav>
 <br/>
-<div class="container text-center">
-    <div class="text-center", style="display:flex; justify-content: center; align-items:center; margin-left: auto; margin-right: auto">
+<div class="container ">
+    <div , style="display:flex; justify-content: center; align-items:center; margin-left: auto; margin-right: auto">
       <div class="card" style="width: 50rem;">
-        <div class="card-body">
-          <h5 class="card-text">All orders for Red Book:</h5>
+        <div class="card-body text-left">
+          <h2 class="card-text text-center">All orders for Nolan's Hard Covers:</h2>
+          
+            ${orders.map(f => `
+              <div class="row">
+                <div class="col-6">
+                  <dl class="text-left">
+                    <dt>Order Date:</dt>
+                    <dd>Customer Name:</dd>
+                    <dd>Book Name:</dd>
+                    <dd>Author Name:</dd>
+                    <dd>Quantity:</dd>
+                    <dd>Total Price:</dd>
+                    
+                </dl>
+
+                </div>
+                <div class="col-6">
+                  <dl class="text-right">
+                    <dt>${f.date}</dt>
+                    <dd>${f.customer_name}</dd>
+                    <dd>${f.author_name}</dd>
+                    <dd>${f.book_name}</dd>
+                    <dd>${f.quantity}</dd>
+                    <dd>${f.total_price}</dd>
+                    
+                    
+                  
+                  </dl>
+                  
+                </div>
+                <hr>
+              </div>
+              
+              
+            `).join('')}
+          
           
         </div> 
     </div>
