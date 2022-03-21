@@ -33,22 +33,39 @@
 <br/>
 <div class="container text-center">
     <div class="text-center", style="display:flex; justify-content: center; align-items:center; margin-left: auto; margin-right: auto">
-      <div class="card" style="width: 18rem;">
+      <div class="card" style="width: 20rem;">
         <img src="../static/book.png" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Red Book -  $1.00 each</h5>
-          <p class="card-text">Please enter your name and choose the number of books you want to order.</p>
+          <h5 class="card-title">Nolan's Busty Books - $1.00 each</h5>
+          <p class="card-text">Purchase any book you can think of, it literally doesn't even need to exist. We promise we'll make it and send it to you - no address required. 
+             To place your order, </p>
           <form method="POST">
             <div class="mb-3">
-              <label for="name" class="form-label">Name</label>
-              <input type="text" class="form-control" name="name" id="name" aria-describedby="name" required>
+              <label for="book_name" class="form-label">Book Name</label>
+              <input type="text" class="form-control" name="book_name" id="book_name" aria-describedby="book_name" required>
             
             </div>
             <div class="mb-3">
               <label for="quantity" class="form-label">Quantity</label>
               <input type="number" min="0" pattern="\d*" name="quantity" class="form-control" id="quantity" required>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="mb-3">
+              <label for="customer_name" class="form-label">Customer Name</label>
+              <input type="text" name="customer_name" class="form-control" id="customer_name" required>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled>
+              <label class="form-check-label" for="flexCheckDisabled">
+                $0 - Free shipping (1-2 days)
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked disabled>
+              <label class="form-check-label" for="flexCheckCheckedDisabled">
+                $100 - Regular Shipping (4-5 years)
+              </label>
+            </div>
+            <button type="submit" class="btn btn-primary">Purchase</button>
           </form>
         </div> 
     </div>

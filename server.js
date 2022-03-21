@@ -29,7 +29,10 @@ app.get('/get/:key', async (req, res) => {
     return res.json(JSON.parse(rawData))
 })
 
-app.get("/admin", (req, res) => {
+app.get("/admin", async (req, res) => {
+    var orders = await client.lRange("orders", 0, -1)
+
+    console.log(orders)
     res.sendFile(__dirname + "/views/admin.html");
   });
 
@@ -39,10 +42,18 @@ app.get("/order", (req, res) => {
 
 app.post("/order", async (req, res) => {
     console.log(req.body)
-    var name = req.body.name
-    var quantity = req.body.quantity;
-    await client.set(name, JSON.stringify(quantity))
-    res.send("Hello " + name + ", Thank you for purchasing " + quantity + " copies of the Red Book");
+   
+    var order = {
+        book_name: req.body.book_name,
+        customer_name: req.body.customer_name,
+        quantity: req.body.quantity,
+        total_price: `$${req.body.quantity}`,
+        date: new Date()
+    }
+    console.log(order)
+
+    await client.rPush("orders", JSON.stringify(order))
+    res.send("Hello " + req.body.customer_name + ". Thank you for your purchase, we probably won't be in touch!");
 });
 
 // app.get('/store/:key', async (req, res) => {
